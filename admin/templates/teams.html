@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% set active_page = "teams" %}
+{% block title %}المجموعات{% endblock %}
+{% block head %}
+    {{ super() }}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/fontawesome-free/css/all.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/jqvmap/jqvmap.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dist/css/adminlte.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/daterangepicker/daterangepicker.css') }}">
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/summernote/summernote-bs4.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+{% endblock %}
+
+{% block navtitle %} 
+<li class="breadcrumb-item ">المجموعات</li>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">عرض جميع المجموعات</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-info" onclick= "location.href='/New_team';" >
+              <i class="fas fa-user"> إنشاء مجموعة جديدة</i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>العنوان</th>
+              <!-- <th>الوصف</th> -->
+              <th>المشروع</th>
+              <th>الأعضاء</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for team in teams %}
+            <tr>
+              <td>{{team.name}}</td>
+              <!-- <td>{{team.description}}</td> -->
+              <td>{{team.project}}</td>
+              <td>{{team.member }}</td>
+              <td class="project-actions text-right">
+                <a class="btn btn-info btn-sm" href="{{url_for('update_team', id=team.id)}}">
+                    <i class="fas fa-pencil-alt">
+                    </i>
+                    تعديل
+                </a>
+                <a class="btn btn-danger btn-sm" href="{{url_for('delete_team', id=team.id)}}">
+                    <i class="fas fa-trash">
+                    </i>
+                    حذف
+                </a>
+            </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

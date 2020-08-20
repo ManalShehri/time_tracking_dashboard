@@ -1,0 +1,309 @@
+{% if current_user.is_authenticated %}
+
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block head %}
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/fontawesome-free/css/all.min.css') }}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+  
+  <!-- iCheck -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+
+  <!-- JQVMap -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/jqvmap/jqvmap.min.css') }}">
+
+  <!-- Theme style -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dist/css/adminlte.min.css') }}">
+
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+
+  <!-- Daterange picker -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/daterangepicker/daterangepicker.css') }}">
+
+  <!-- summernote -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/summernote/summernote-bs4.min.css') }}">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
+
+  <!-- Select2 -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
+  <!-- BS Stepper -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/bs-stepper/css/bs-stepper.min.css') }}">
+  <!-- dropzonejs -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/dropzone/min/dropzone.min.css') }}">
+
+
+    <title>{% block title %}{% endblock %} - T3</title>
+    {% endblock %}
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+          <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/index/" class="nav-link">الرئيسية</a>
+      </li>
+      <!-- <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">التواصل</a>
+      </li> -->
+    </ul>
+
+    <!-- SEARCH FORM -->
+    <form class="form-inline ml-3">
+      <div class="input-group input-group-sm">
+        <input class="form-control form-control-navbar" type="search" placeholder="ابحث عن" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-navbar" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="/logout/" role="button">
+          <i class="fas fa-logout">تسجيل خروج</i>
+        </a>
+      </li>
+     </ul>
+  </nav>
+  <!-- /.navbar -->
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="/index/" class="brand-link">
+          <img src="{{ url_for('static', filename='dist/img/AdminLTELogo.png') }}" alt="t3Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+          <span class="brand-text font-weight-light">T3</span>
+        </a>
+    
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+              <img src="{{ url_for('static', filename='dist/img/user4-128x128.jpg') }}" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+              <a href="/Profile/" class="d-block">
+                {% if current_user.is_authenticated %}
+                {{ current_user.first_name + " " + current_user.last_name}} 
+              {% endif %}
+                             </a>
+            </div>
+          </div>
+    
+          <!-- SidebarSearch Form -->
+          <div class="form-inline">
+            <div class="input-group" data-widget="sidebar-search">
+              <input class="form-control form-control-sidebar" type="search" placeholder="ابحث عن" aria-label="Search">
+              <div class="input-group-append">
+                <button class="btn btn-sidebar">
+                  <i class="fas fa-search fa-fw"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+    
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              <!-- Add icons to the links using the .nav-icon class
+                   with font-awesome or any other icon font library -->
+              <li class="nav-item menu-open">
+                <a href="#" class="nav-link active">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    لوحة التحكم
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="/index/" class="nav-link {{ 'active' if active_page == 'stat' else '' }}">
+                     
+                      <i class="far fa-chart-bar nav-icon"></i>
+                      <p>الإحصائيات</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/AccountsList" class="nav-link {{ 'active' if active_page == 'users' else '' }}">
+                      <i class="fas fa-user nav-icon"></i>
+                      <p>المستخدمين</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/ProjectsList/" class="nav-link {{ 'active' if active_page == 'projects' else '' }}" >
+                      <i class="far fa-folder nav-icon"></i>
+                      <p>المشاريع</p>
+                    </a>
+                  </li>
+                  <!-- <li class="nav-item">
+                    <a href="/ProjectsList2/" class="nav-link {{ 'active' if active_page == 'projects' else '' }}" >
+                      <i class="far fa-folder nav-icon"></i>
+                      <p> 2 المشاريع</p>
+                    </a>
+                  </li> -->
+                  <li class="nav-item">
+                    <a href="/TeamsList/" class="nav-link {{ 'active' if active_page == 'teams' else '' }}">
+                      <i class="fas fa-users nav-icon"></i>
+                      <!-- <i class="fas fa-users"></i> -->
+                      <p>المجموعات</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/TasksList/" class="nav-link {{ 'active' if active_page == 'tasks' else '' }}">
+                      <i class="fas fa-tasks nav-icon"></i>
+                      <!-- <i class="fas fa-users"></i> -->
+                      <p>المهام</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/TagsList/" class="nav-link {{ 'active' if active_page == 'tags' else '' }}">
+                      <i class="fas fa-tag nav-icon"></i>
+                      <!-- <i class="fas fa-users"></i> -->
+                      <p>العلامات</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!-- <li class="nav-item">
+                <a href="./index3.html" class="nav-link">
+                  <i class="nav-icon far fa-circle text-warning"></i>
+                  <p>الاكواد</p>
+                </a>
+              </li> -->
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+      </aside>
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">لوحة التحكم</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-left">
+                <li class="breadcrumb-item"><a href="/index/">الرئيسية</a></li>
+                {% block navtitle %}
+                 {% endblock %}
+                
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+            {% block content %}{% endblock %}
+    </section>
+    <!-- /.content -->
+  </div>
+
+</div>
+    <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <strong>Copyright &copy; Tera-CIT 2020</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1.0-pre
+    </div>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+{% block foot %}
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js') }}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{{ url_for('static', filename='plugins/jquery-ui/jquery-ui.min.js') }} "></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- ChartJS -->
+<script src="{{ url_for('static', filename='plugins/chart.js/Chart.min.js') }}"></script>
+<!-- Sparkline -->
+<script src="{{ url_for('static', filename='plugins/sparklines/sparkline.js') }}"></script>
+<!-- JQVMap -->
+
+<script src="{{ url_for('static', filename='plugins/jqvmap/jquery.vmap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
+<!-- jQuery Knob Chart -->
+
+<script src="{{ url_for('static', filename='plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+<!-- daterangepicker -->
+<script src="{{ url_for('static', filename='plugins/moment/moment.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/daterangepicker/daterangepicker.js') }}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ url_for('static', filename='plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<!-- Summernote -->
+<script src="{{ url_for('static', filename='plugins/summernote/summernote-bs4.min.js') }}"></script>
+<!-- overlayScrollbars -->
+<script src="{{ url_for('static', filename='plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="../{{ url_for('static', filename='dist/js/adminlte.js') }}/"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ url_for('static', filename='dist/js/demo.js') }}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{{ url_for('static', filename='dist/js/pages/dashboard.js') }}"></script>
+<!-- DataTables -->
+<script src="{{ url_for('static', filename='plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+
+<!-- Page specific script -->
+<script>
+    $(function () {
+      $("#example1").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+      });
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+  </script>
+{% endblock %}
+</body>
+</html>
+{% endif %}

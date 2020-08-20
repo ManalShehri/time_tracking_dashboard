@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% set active_page = "projects" %}
+{% block title %}المشاريع{% endblock %}
+{% block head %}
+    {{ super() }}
+      <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../static/plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../static/dist/css/adminlte.min.css"> 
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/fontawesome-free/css/all.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dist/css/adminlte.min.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+  var $self = 0;
+    $(document).ready(function(){
+      $("#btn").click(function(){
+        $("#team").append("<div class='form-group'><label> العضو</label><select id='inputStatus' class='form-control custom-select' name = 'team-member"+ $self +"' >{% for user in users %}<option value='{{ user.id}}'>{{ user.name }}</option>{% endfor %} </select></div>");
+        $("#role").append("<div class='form-group'><label> الدور</label><select id='inputStatus' class='form-control custom-select' name = 'member-role"+ $self +"' ><option value='leader'>قائد</option> <option value='member'>عضو</option> </select></div>");
+          $self = $self +1 ;
+          });
+      });
+    </script>
+{% endblock %}
+
+{% block navtitle %} 
+<li class="breadcrumb-item "><a href="/ProjectsList/">المشاريع</a></li>
+<li class="breadcrumb-item active">تعديل بيانات مشروع</li>
+{% endblock %}
+
+{% block content %}
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">معلومات المشروع</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <form action="{{ url_for('update_project', id=id) }}" method="POST">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="inputName">العنوان</label>
+                      <input type="text" id="inputName" class="form-control" name="title" value="{{project_.title}}">
+                    </div>
+                    <div class="form-group">
+                      <label for="inputName">تاريخ الإنشاء</label>
+                      <input type="text" id="inputName" class="form-control" value="{{project_.created_at}}" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputName">اخر تعديل</label>
+                      <input type="text" id="inputName" class="form-control" value="{{project_.updated_at}}" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputStatus">الحالة</label>
+                      <select id="inputStatus" class="form-control custom-select" name="status">
+                        <option {% if project_.status == 'نشط' %} selected {% endif %}value="نشط">
+                        نشط
+                        </option>
+                        <option {% if project_.status == 'معلق' %} selected {% endif %} value="معلق" >معلق</option>
+                        <option {% if project_.status == 'مؤرشف' %} selected {% endif %} value="مؤرشف" >مؤرشف</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputDescription">الوصف </label>
+                      <textarea id="inputDescription" name="description" class="form-control" rows="3">{{ description }}</textarea>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group" id="repr">
+                      <div >
+      
+                      </div>
+                      <div class="row">
+                      {% for i in range(members|length) %}
+                        <div class="col-md-6">
+                          <ul id="team">
+                            <div class='form-group'>
+                              <label> {{ i }} العضو</label>
+                              <select id='inputStatus' class='form-control custom-select' name = "team-member{{ i }}">
+                              {% for user in users %}
+                                 <option value='{{ user.id }}' {% if members[i].id == user.id %} selected  {% endif %} >{{ user.name }}</option>
+                                 {% endfor %}
+                                </select>
+                              </div>
+                          </ul>
+                        </div>
+                        <div class="col-md-6">
+                          <ul id="role">
+                            <div class='form-group'>
+                              <label> الدور</label>
+                              <select id='inputStatus' class='form-control custom-select' name = 'member-role{{ i }}' >
+                                <option {% if members[i].role == 'قائد' %} selected {% endif %} value='قائد'> قائد </option>
+                                <option {% if members[i].role == 'عضو' %} selected {% endif %} value='عضو'> عضو </option>
+                              </select>
+                            </div>
+                          </ul>
+                        </div>
+                      {% endfor %}
+                      </div>
+                      <div class="row">
+                        <!-- <button id="btn" class="btn btn-success" type="button">إضافة عضو</button> -->
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary btn-block" id="btn-submit">حفظ التغيرات</button>
+                    </div>
+                  </div>
+                </div>
+                <input id="idid" type="hidden" value="{{ (members|length) }}" name="self_">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- jQuery -->
+<script src="../static/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../static/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../static/dist/js/demo.js"></script>
+{% endblock %}

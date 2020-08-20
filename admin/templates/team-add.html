@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% set active_page = "teams" %}
+{% block title %}المجموعات{% endblock %}
+{% block head %}
+    {{ super() }}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+  var $self = 0;
+    $(document).ready(function(){
+      $("#btn").click(function(){
+        $("#team").append("<div class='form-group'><label> العضو</label><select id='inputStatus' class='form-control custom-select' name = 'team-member"+ $self +"' >{% for user in users %}<option value='{{ user.id}}'>{{ user.name }}</option>{% endfor %} </select></div>");
+        $("#role").append("<div class='form-group'><label> الدور</label><select id='inputStatus' class='form-control custom-select' name = 'member-role"+ $self +"' ><option value='leader'>قائد</option> <option value='member'>عضو</option> </select></div>");
+          $self = $self +1 ;
+          });
+          $("#btn-submit").click(function(){
+              $("#idid").val($self);
+          });
+      });
+    </script>
+{% endblock %}
+
+{% block navtitle %} 
+<li class="breadcrumb-item "><a href="/TeamsList/">المجموعات</a></li>
+<li class="breadcrumb-item active">إضافة مجموعة</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">معلومات المجموعة</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <form action="{{ url_for('New_team') }}" method="POST">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="inputName">الاسم</label>
+                <input type="text" id="inputName" class="form-control" name="name">
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">الوصف </label>
+                <textarea id="inputDescription" name="description" class="form-control" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <button id="btn" class="btn btn-success" type="button">إضافة عضو</button>
+                <div class="row">
+                  <div class="col-md-6">
+                    <ul id="team">
+                    </ul>
+                  </div>
+                  <div class="col-md-6">
+                    <ul id="role">
+                    </ul>
+                  </div>
+                </div>
+                
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block" id="btn-submit">حفظ التغيرات</button>
+              </div>
+            </div>
+          </div>
+          <input id="idid" type="hidden" value="" name="self">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

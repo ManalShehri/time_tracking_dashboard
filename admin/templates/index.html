@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}الرئيسية{% endblock %}
+{% set active_page = "stat" %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3>{{proects_number}}</h3>
+              <p>المشاريع</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-folder"></i>
+            </div>
+            <a href="/ProjectsList/" class="small-box-footer">  انقر للمزيد<i class="fas fa-arrow-circle-left"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3>{{teams_number}}<sup style="font-size: 20px"></sup></h3>
+              <p>المجموعات  </p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="/TeamsList/" class="small-box-footer">انقر للمزيد <i class="fas fa-arrow-circle-left"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-warning">
+            <div class="inner">
+              <h3>{{users_number}}</h3>
+              <p>عدد المستخدمين</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person"></i>
+            </div>
+            <a href="/AccountsList/" class="small-box-footer">انقر للمزيد <i class="fas fa-arrow-circle-left"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-danger">
+            <div class="inner">
+              <h3>..</h3>
+
+              <p>..</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">انقر للمزيد <i class="fas fa-arrow-circle-left"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <section class="col-lg-12 connectedSortable">
+          <div class="card">
+            <div class="card-header border-transparent">
+              <h3 class="card-title">النشاط</h3>
+              <!-- for current tasks -->
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table m-0">
+                  <thead>
+                  <tr>
+                    <th>المهمة</th>
+                    <th>البداية</th>
+                    <th>المدة</th>  <!-- <th>الوقت هنا يدور </th> -->
+                    <th>المشروع </th>
+                    <th>المستخدم </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    {% for task in today_tasks %}
+                  <tr>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.start_at }}</td>
+                    <td>مستمر</td>
+                    <td>{{ task.start_at }}</td>
+                    <td>{{ task.project }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+              </div>
+              <!-- /.table-responsive -->
+            </div>
+            <div class="card-footer clearfix">
+              <a href="/TasksList/" class="btn btn-sm btn-info float-left">جميع المهام</a>
+              <!-- <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">جميع المهام</a> -->
+            </div>
+          </div>
+        </section>
+      </div>
+  </div>
+<script src="../../plugins/chart.js/Chart.min.js"></script>
+{% endblock %}
