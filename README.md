@@ -3,7 +3,9 @@ Time Tracking Dashboard
 
 ## Introduction
 
-Time Tracking Dashboard is a employees time tracking dashboard. it contains also the company projects, teams, employees tasks. the admin can: 
+Time Tracking Dashboard is a dashboard for managing employees tasks/info and company projects as well.
+
+The admin is able to: 
 - view employees tasks 
 - view all users 
 - add a new user
