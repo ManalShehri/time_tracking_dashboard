@@ -46,3 +46,5 @@ python run_server.py
 
 
 6. Log in the dashboard (email = 'test@tera-cit.net' & password = 'test')
+
+## Live Demo [https://t3-dashboard.herokuapp.com//](Here)
